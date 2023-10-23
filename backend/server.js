@@ -54,6 +54,7 @@ app.get("/shout", async (req, res) => {
         } else if (name) {
             shouts = await Shout.find({name: name}).exec();
         } else {
+            // TODO: FIX
             shouts = await Shout.find({}).sort('-createdAt').exec();
         }
     
@@ -85,6 +86,7 @@ app.post("/shout", async (req, res) => {
     }
 });
 
+// TODO: FIX
 app.delete("/shout", async(req, res) => {
     let deleteID = req.body.deleteID.toString()
 
