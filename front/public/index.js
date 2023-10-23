@@ -9,34 +9,35 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log(createShoutForm)
 
     createShoutForm.addEventListener("submit", async (e) => {
-        e.preventDefault()
-        let formData = new FormData(createShoutForm)
-
+        e.preventDefault();
+        let formData = new FormData(createShoutForm);
+    
         let payload = {
             name: formData.get("name"),
             content: formData.get("content")
         };
+    
+        console.log(JSON.stringify(payload));
+        
+        try {
+            let response = await fetch(API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload),
+            });
 
-        console.log(JSON.stringify(payload))
-        let response = await fetch(API_URL, {
-            method: "POST",
-            header: {
-                "Content-type": "application/json"
-            },
-            body: JSON.stringify(payload)
-        });
-
-        alert(response.status)
-
-        if (response.status == 200){
-            createShoutForm.reset();
-            getShouts();
-        } else {
-            console.error(response.statusText);
-            alert(response.statusText);
-            return;
+            if (response.ok) {
+                createShoutForm.reset();
+                getShouts();
+            } else {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+        } catch (error) {
+            console.error("Fetch error: " + error.message);
         }
-
     });
 });
 
