@@ -74,10 +74,15 @@ async function getShoutsByName(name) {
 function displayShouts(data) {
     const shoutContainer = document.querySelector(".shout_container");
 
+	// Clear container before filling again
+	shoutContainer.innerHTML = '';
+
     if (data.count > 0) {
         data.shouts.forEach((rec) => {
+			console.log(rec)
             let shoutDiv = document.createElement("div")
             shoutDiv.classList.add("shout")
+			shoutDiv.id = rec._id;
 
             let name = document.createElement("h3")
             name.textContent = rec.name
