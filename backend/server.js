@@ -40,7 +40,7 @@ function tagParser(text) {
 }
 
 app.get("/", (req, res) => {
-    res.json({message: "Hello"})
+    res.json({message: "Der er hul igennem!"})
 });
 
 app.get("/shout", async (req, res) => {
@@ -86,21 +86,21 @@ app.post("/shout", async (req, res) => {
     }
 });
 
-// TODO: FIX
-app.delete("/shout", async(req, res) => {
-    let deleteID = req.body.deleteID.toString()
+app.delete("/shout", async (req, res) => {
+    let deleteID = req.body.deleteID;
 
-    res.message(deleteID)
-
-    blogSchema.findByIdAndDelete(deleteID, function (err, docs) {
-        if (!err){
-            console.log( docs);
+    try {
+        let deletedShout = await Shout.findByIdAndDelete(deleteID);
+		
+        if (deletedShout) {
+            res.status(200).send({ message: 'Shout succesfully deleted', deletedShout });
+        } else {
+            res.status(404).send({ error: `No document found with ID: ${deleteID}` });
         }
-        else{
-            console.log(err);
-        }
-     });
-
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ error: "Server Error" });
+    }
 });
 
 app.listen(PORT, () => console.log(`Listing on port: ${PORT}...`));
