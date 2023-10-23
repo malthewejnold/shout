@@ -16,7 +16,10 @@
             <h1>shout</h1>
         </header>
         <main>
-            <form class="shout_form">
+			<div class="create_button_div" onclick="unhide_shout_form()">
+				<button>create a shout</button>
+			</div>
+            <form class="shout_form" hidden>
                 <label for="name">Name</label>
                 <input type="text" id="name" name="name">
                 <label for="content">shout:</label>
@@ -25,6 +28,17 @@
             </form>
             <div class="shout_container">
 				<!--Main div holding shouts-->
+				<!--Dummy shout
+				<div class="shout">
+                    <h3>Test</h3>
+                    <div class="shout_content">
+                        <p>
+                            <span class="user-link">@user</span> er <span class="tag-link">#tag</span>
+                        </p>
+                        <span class="shout_date">20-10-2023</span>
+                    </div>
+                </div>
+				-->
             </div>
         </main>
     </body>
