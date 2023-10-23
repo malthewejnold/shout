@@ -83,6 +83,22 @@ app.post("/shout", async (req, res) => {
         res.status(400);
         res.json({message: "Invalid shout"});
     }
-})
+});
+
+app.delete("/shout", async(req, res) => {
+    let deleteID = req.body.deleteID.toString()
+
+    res.message(deleteID)
+
+    blogSchema.findByIdAndDelete(deleteID, function (err, docs) {
+        if (!err){
+            console.log( docs);
+        }
+        else{
+            console.log(err);
+        }
+     });
+
+});
 
 app.listen(PORT, () => console.log(`Listing on port: ${PORT}...`));
