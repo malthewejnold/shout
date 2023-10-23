@@ -31,6 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (response.ok) {
                 createShoutForm.reset();
                 getShouts();
+				hide_shout_form();
             } else {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -48,7 +49,6 @@ async function getShouts() {
 
     //Display the result
     displayShouts(shouts)
-    console.log(shouts)
 }
 
 // Get by tags
@@ -58,7 +58,6 @@ async function getShoutsByTags(tag) {
 
     //Display the result
     displayShouts(shouts)
-    console.log(shouts)
 }
 
 // Get by name
@@ -68,7 +67,6 @@ async function getShoutsByName(name) {
 
     //Display the result
     displayShouts(shouts)
-    console.log(shouts)
 }
 
 function displayShouts(data) {
@@ -107,4 +105,20 @@ function displayShouts(data) {
     } else {
         return;
     }
+}
+
+function unhide_shout_form() {
+	let createShoutForm = document.querySelector(".shout_form");
+	createShoutForm.style.display = "flex";
+
+	let createShoutButton = document.querySelector(".create_button_div");
+	createShoutButton.style.display = "none";
+}
+
+function hide_shout_form() {
+	let createShoutForm = document.querySelector(".shout_form");
+	createShoutForm.style.display = "none";
+
+	let createShoutButton = document.querySelector(".create_button_div");
+	createShoutButton.style.display = "flex";
 }
