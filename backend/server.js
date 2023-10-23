@@ -54,7 +54,7 @@ app.get("/shout", async (req, res) => {
         } else if (name) {
             shouts = await Shout.find({name: name}).exec();
         } else {
-            shouts = await Shout.find({}).exec();
+            shouts = await Shout.find({}).sort('-createdAt').exec();
         }
     
         res.json({shouts, count: shouts.length});
